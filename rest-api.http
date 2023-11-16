@@ -1,0 +1,41 @@
+### New Thread
+POST http://localhost:8000/api/new
+Accept: application/json
+
+> {%
+client.global.set("thread_id", response.body.thread_id)
+client.global.set("run_id", response.body.run_id)
+ %}
+
+### Retrieve Thread
+GET http://localhost:8000/api/threads/{{thread_id}}
+Accept: application/json
+
+### Run status
+GET http://localhost:8000/api/threads/{{thread_id}}/runs/{{run_id}}
+Accept: application/json
+
+### New Reply
+POST http://localhost:8000/api/threads/{{thread_id}}
+Accept: application/json
+Content-Type: application/json
+
+{ "content": "Does kie have video with Phillips Hue?" }
+
+
+> {%
+client.global.set("thread_id", response.body.thread_id)
+client.global.set("run_id", response.body.run_id)
+ %}
+
+### Submit Tool Output
+POST http://localhost:8000/api/threads/{{thread_id}}/runs/{{run_id}}/tool
+Accept: application/json
+Content-Type: application/json
+
+[
+    {
+        "tool_call_id": "call_WNpt3enka45nnK8MMFkSDetd",
+        "output": "{'success': true}"
+    }
+]
